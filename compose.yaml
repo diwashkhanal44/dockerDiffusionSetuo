@@ -1,0 +1,16 @@
+version: "3.8"  
+
+services:
+
+  webui:
+    build: ./webui
+    working_dir: /app   
+    environment:
+      HF_HOME: /app/cache
+      MPLCONFIGDIR: /app/matplotlib_cache
+    user: webui
+    entrypoint: ["./webui.sh","--listen","--skip-torch-cuda-test","--no-half","--use-cpu","all"]
+    volumes:
+      - ./models/dreamshaper_8.safetensors:/app/models/Stable-diffusion/dreamshaper_8.safetensors
+    ports:
+    - "7860:7860"   
